@@ -1,0 +1,3 @@
+DROP SCHEMA sample IF EXISTS;
+
+CREATE SCHEMA sample;
