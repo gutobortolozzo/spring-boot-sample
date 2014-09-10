@@ -17,13 +17,15 @@ public class Person {
 	private long id;
 	
 	@Column(name="name")
-	final private String name;
+	private String name;
 	
 	@Column(name="last_name")
 	private String lastName;
 	
 	@Column(name="date_of_birth")
 	private Date birthDay;
+	
+	public Person() {}
 
 	public Person(String name, String lastName, Date birthDay) {
 		this.name = name;

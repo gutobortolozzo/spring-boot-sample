@@ -10,23 +10,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.objective.AbstractSpringConfiguration;
 import com.sample.entity.Person;
-import com.sample.repository.PersonRepository;
+import com.sample.repository.PersonRepositorySql;
 
-public class PersonEntityTest extends AbstractSpringConfiguration {
+public class PersonEntitySqlTest extends AbstractSpringConfiguration {
 
-	@Autowired private PersonRepository repo;
+	@Autowired private PersonRepositorySql repo;
 	
 	@Test public void thereIsRepo(){
 		assertNotNull(repo.findAll());
 	}
 	
 	@Test public void queryAllPeople(){
-		assertEquals(1, repo.count());
+		assertEquals(1, repo.count(), 0);
 	}
 	
 	@Test public void deletePerson(){
 		repo.deleteAll();
-		assertEquals(0, repo.count());
+		assertEquals(0, repo.count(), 0);
 	}
 	
 	@Test public void queryForPerson(){

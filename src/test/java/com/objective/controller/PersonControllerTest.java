@@ -10,18 +10,20 @@ import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.objective.AbstractSpringConfiguration;
 import com.sample.controller.PersonController;
 import com.sample.entity.Person;
-import com.sample.repository.PersonRepository;
+import com.sample.repository.PersonRepositorySql;
 
 public class PersonControllerTest extends AbstractSpringConfiguration {
 	
-	@Autowired private PersonRepository repo;
+	@Autowired private PersonRepositorySql repo;
 	@Autowired private PersonController subject;
+	private MockMvc mockMvc;
 	
 	@Before public void setup() throws Exception {
 		mockMvc = MockMvcBuilders.standaloneSetup(subject).build();

@@ -12,8 +12,10 @@ import com.sample.controller.PersonController;
 @EnableAutoConfiguration
 public class Startup {
 	
-	public static void main(String[] args) {
-		Class<?>[] context = {Startup.class, PersonController.class};
+	public static void main(String[] args) throws Exception {
+		Class<?>[] context = {Startup.class, PersonController.class, BeansConfiguration.class, MongoConfiguration.class,
+							 StartupCallback.class};
+		
 		SpringApplication.run(context, args);
 	}
 }

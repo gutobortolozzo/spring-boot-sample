@@ -1,6 +1,7 @@
 
 package com.sample.controller;
 
+import java.util.Collection;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,26 +11,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sample.entity.Person;
-import com.sample.repository.PersonRepository;
+import com.sample.repository.PersonRepositoryNoSql;
+import com.sample.repository.PersonRepositorySql;
 
 @RestController
 public class PersonController {
 		
-	@Autowired private PersonRepository repo;
+	@Autowired private PersonRepositorySql repoSql;
+	@Autowired private PersonRepositoryNoSql repoNoSql;
 	
 	@RequestMapping("/people.json")
 	public Iterable<Person> people() {
-		return repo.findAll();
+		Collection<Person> all = repoSql.findAll();
+		all.addAll(repoNoSql.findAll());
+		return all;
 	}
 	
 	@RequestMapping("/person.json/{name}")
 	public Iterable<Person> person(@PathVariable("name") String name) {
-		return repo.find(name);
+		Collection<Person> collection = repoNoSql.find(name);
+		collection.addAll(repoSql.find(name));
+		return collection;
 	}
 	
 	@RequestMapping("/person.json/delete/{name}")
 	public void delete(@PathVariable("name") String name) {
-		repo.find(name).forEach(person -> repo.delete(person));
+		repoSql.find(name).forEach(person -> repoSql.delete(person));
 	}
 	
 	@ExceptionHandler
